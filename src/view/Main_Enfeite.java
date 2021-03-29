@@ -18,7 +18,7 @@ public class Main_Enfeite {
 
 			switch (ops) {
 			case 1:
-				enfeites.Cadastro_enfeites();
+				enfeites.Cadastro_Enfeite();
 				break;
 
 			case 2: 

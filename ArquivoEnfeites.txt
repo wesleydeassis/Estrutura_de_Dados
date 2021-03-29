@@ -1,16 +1,4 @@
-1
-1
-
-1
-2
-2
-2
-2
-3
-3
-3
-3
-4
-4
-4
-4
+123
+Homem aranha
+roupa de super-heroi
+89,90
