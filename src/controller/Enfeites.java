@@ -6,7 +6,7 @@ public class Enfeites {
 	private String descricaoEnfeite;
 	private String preco;
 	
-	public Enfeites(String codTema, String TemaEnfeite, String DescricaoTema, String preco) {
+	public Enfeites(String codTema, String temaEnfeite, String descricaoEnfeite, String preco) {
 		this.codTema = codTema;
 		this.temaEnfeite = temaEnfeite;
 		this.descricaoEnfeite = descricaoEnfeite;
