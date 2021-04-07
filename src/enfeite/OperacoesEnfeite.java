@@ -1,43 +1,41 @@
-package controller;
+package enfeite;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
-public class Cadastro_enfeites {
 
-	Consultas consultas = new Consultas();
-	private String codTema;
+public class OperacoesEnfeite {
+
+	private int codTema;
 	private String tema;
 	private String descricao;
-	private String preco;
-	private int ops;
-	private NO_Enfeites inicio;
+	private double preco;
+	private NO inicio;
 	
-	 
-	public Cadastro_enfeites() {
+	public OperacoesEnfeite() {
 		inicio = null;
-
 	}
 
-	public void Cadastro_Enfeites() {
-		while (ops != 99) {
+	public void MenuEnfeites() {
+		int opcao = 0;
+		while (opcao != 99) {
 
-			ops = Integer.parseInt(JOptionPane.showInputDialog("Inicio: "+
-			"\n1- Cadastro Enfeite"+
-			"\n2- Gravar Lista Enfeites"+
-			"\n3- Listar Enfeites"+
-			"\n4- Busca por Tema"+
-			"\n5- Remover da Lista enfeites"+
-			"\n6- Remover da Lista"+
-			"\n7- Mostar Lista recuperada"+
-			"\n99- Sair  "));
+			opcao = Integer.parseInt(JOptionPane.showInputDialog("Menu de Enfeites: \n"+
+			"\n1- Cadastrar enfeite"+
+			"\n2- Gravar lista de enfeites"+
+			"\n3- Listar enfeites"+
+			"\n4- Buscar enfeite por Tema"+
+			"\n5- Remover da enfeite da lista"+
+			"\n6- Recuperar da lista"+
+			"\n7- Mostrar lista recuperada"+
+			"\n99- Voltar  "));
 			
-			Consultas consulta = new Consultas();
-
-			switch (ops) {
+			switch (opcao) {
 				case 1:
-					Cad_Enfeite();;
+					CadastrarEnfeites();
 				break;
 
 				case 2:	
@@ -45,7 +43,7 @@ public class Cadastro_enfeites {
 				break;
 
 				case 3:
-					ListaEnfeite();
+					ListarEnfeites();
 				break;
 
 				case 4:
@@ -54,18 +52,21 @@ public class Cadastro_enfeites {
 				break;
 
 				case 5:
-					int pos = Integer.parseInt(JOptionPane.showInputDialog("Digite a posição a ser removida: "));
-					System.out.println(RemoverEnfeite(pos));
+					int posicao = Integer.parseInt(JOptionPane.showInputDialog("Digite a posição a ser removida: "));
+					System.out.println(RemoverEnfeites(posicao));
 				break;
 
 				case 6:
-					consulta.RecuperarListaEnfeites();
+					RecuperarListaEnfeites();
 				break;
 
 				case 7:
-					consulta.PercorreListaEnfeite();
+					PercorreListaEnfeites();
 				break;
 				
+				case 99:
+					JOptionPane.showMessageDialog(null, "Voltando ao menu anterior");
+				break;
 				default:
 				break;
 			} // fim switch
@@ -73,10 +74,10 @@ public class Cadastro_enfeites {
 	} // fim cadastro enfeites
 	
 
-	public void Cad_Enfeite() {   // adicionar no final da lista
+	public void CadastrarEnfeites() {   // adicionar no final da lista
 		Enfeites enfeites = new Enfeites(codTema, tema, descricao, preco);
 
-		codTema = JOptionPane.showInputDialog("Informe o código do tema");
+		codTema = (int)(Math.random());
 		enfeites.setCodTema(codTema);
 
 		tema = JOptionPane.showInputDialog("Informe o tema do enfeite");
@@ -85,19 +86,19 @@ public class Cadastro_enfeites {
 		descricao = JOptionPane.showInputDialog("Informe a descrição do enfeite");
 		enfeites.setDescricaoEnfeite(descricao);
 
-		preco = JOptionPane.showInputDialog("Informe o preço do tema");
+		preco = Double.parseDouble(JOptionPane.showInputDialog("Informe o preço do tema"));
 		enfeites.setPreco(preco);
 		
 		if (inicio == null) {							// verifica se a lista est� vazia
-			NO_Enfeites n = new NO_Enfeites(enfeites);	// carrega o valor de "e" no n� criado
+			NO n = new NO(enfeites);	// carrega o valor de "e" no n� criado
 			inicio = n;									// carrega inicio com "n" - novo n� criado
 		}  // fim if
 		else {
-				NO_Enfeites aux = inicio;				// cria endere�o de n� "aux" e carrega com o endere�o de inicio
+				NO aux = inicio;				// cria endere�o de n� "aux" e carrega com o endere�o de inicio
 				while (aux.prox != null) {				// prox vem da classe contructor NO
 					aux = aux.prox;						// vai movendo aux para a proximo endere�o
 				} // fim while
-				NO_Enfeites n = new NO_Enfeites(enfeites);	// cria um novo n� com endere�o "n" e carrega dado "e"
+				NO n = new NO(enfeites);	// cria um novo n� com endere�o "n" e carrega dado "e"
 				aux.prox = n;								// carrega n aux o endere�o de n		
 		} // fim do else
 		JOptionPane.showMessageDialog(null, "Enfeitae cadastrado com sucesso!");  
@@ -110,7 +111,7 @@ public class Cadastro_enfeites {
 	
 	
 	public void GravarEnfeites()  {
-		NO_Enfeites aux = inicio;
+		NO aux = inicio;
 		
 		try {
 			String fileName = "ArquivoEnfeites.txt";	
@@ -133,7 +134,7 @@ public class Cadastro_enfeites {
 				gravar.newLine();
 
 				preco = aux.enfeites.getPreco();
-	            gravar.write(aux.enfeites.getPreco()); 
+	            gravar.write((int) aux.enfeites.getPreco()); 
 				gravar.newLine();
 
 				aux = aux.prox;
@@ -147,12 +148,12 @@ public class Cadastro_enfeites {
 	} // fim gravar  enfeites
 	
 
-	public void ListaEnfeite() {
+	public void ListarEnfeites() {
 		if (inicio == null) {
 			JOptionPane.showMessageDialog(null, "Lista está vazia!"); 
 		} // if
 		else {
-			NO_Enfeites aux1 = inicio;	// cria��o de duas variaveis
+			NO aux1 = inicio;	// cria��o de duas variaveis
 			
 			while (aux1 != null) {
 				System.out.println("Código: " +aux1.enfeites.getCodTema() +" - Tema: " +aux1.enfeites.getTemaEnfeite()+" - Descrição: "+ aux1.enfeites.getDescricaoEnfeite() + " - Preço: " + aux1.enfeites.getPreco()); 
@@ -164,7 +165,7 @@ public class Cadastro_enfeites {
 
 	public void BuscarEnfeites(String tema) {
 		String aux = "";
-		for(NO_Enfeites nodo = inicio; nodo != null; nodo = nodo.prox) {
+		for(NO nodo = inicio; nodo != null; nodo = nodo.prox) {
 			aux = nodo.enfeites.getTemaEnfeite();
 
 		    if ( tema.equalsIgnoreCase(aux) ) {
@@ -182,10 +183,10 @@ public class Cadastro_enfeites {
 	} // fim buscar
 	
 	public String RemoverInicio() {			// 6 remover no inico da lista
-		String codTema1 = "";								// criar as variaveis
+		int codTema1 = 0;								// criar as variaveis
 		String tema1 = "";
 		String descricao1 = "";
-		String preco1 = "";
+		double preco1 = 0.0;
 
 		if (inicio == null) {
 			JOptionPane.showMessageDialog(null, "A Lista está vazia");
@@ -203,10 +204,11 @@ public class Cadastro_enfeites {
 	} // fim da classe Remove Inicio
 	
 	public String RemoveFinal() {					// 5 remover no final da lista
-		String codTema1 = "";								// criar as variaveis
+		int codTema1 = 0;								// criar as variaveis
 		String tema1 = "";
 		String descricao1 = "";
-		String preco1 = "";
+		double preco1 = 0.0;
+
 		
 		if (inicio == null ) {
 			JOptionPane.showMessageDialog(null, " Lista está vazia");
@@ -222,7 +224,7 @@ public class Cadastro_enfeites {
 				inicio = null;					// informa que � o ultimo elemento da lista
 			} // fim if
 			else {		
-				NO_Enfeites aux = LocalizaDadoRemocaoFim(inicio, inicio);
+				NO aux = LocalizaDadoRemocaoFim(inicio, inicio);
 
 				codTema1 = aux.prox.enfeites.getCodTema();				
 				tema1 = aux.prox.enfeites.getTemaEnfeite();				
@@ -238,7 +240,7 @@ public class Cadastro_enfeites {
 	} // fim remover no final
 	
 
-	public NO_Enfeites LocalizaDadoRemocaoFim(NO_Enfeites aux1, NO_Enfeites aux2) {
+	public NO LocalizaDadoRemocaoFim(NO aux1, NO aux2) {
 		if ( aux1.prox != null ) {
 			return LocalizaDadoRemocaoFim(aux1.prox, aux1);
 		}
@@ -246,13 +248,14 @@ public class Cadastro_enfeites {
 	}
 	
 	
-	public String RemoverEnfeite(int pos) {
-		String codTema1 = "";								// criar as variaveis
+	public String RemoverEnfeites(int pos) {
+			int codTema1 = 0;								// criar as variaveis
 		String tema1 = "";
 		String descricao1 = "";
-		String preco1 = "";	
+		double preco1 = 0.0;
+
 		int i = 1; 
-		NO_Enfeites aux = inicio;	// criar um endere�amento aux com valor inicial
+		NO aux = inicio;	// criar um endere�amento aux com valor inicial
 		
 		if ( inicio == null ) {
 			JOptionPane.showMessageDialog(null, "Lista está vazia!");
@@ -297,7 +300,7 @@ public class Cadastro_enfeites {
 			} // fim else
 			else {						// remover qualquer posi��o
 				aux = inicio;			// carrega aux com inicio
-				NO_Enfeites aux2 = aux;			// cria endere�amenteo aux 2 e copia aux
+				NO aux2 = aux;			// cria endere�amenteo aux 2 e copia aux
 				
 				while(pos > 1) {
 					aux2 = aux;
@@ -316,4 +319,67 @@ public class Cadastro_enfeites {
 			} // fim else
 		} // fim else
 	} // fim metodo escolher remover
+
+
+	public void RecuperarListaEnfeites()  {	
+		try {
+			String fileName = "ArquivoEnfeites.txt";
+			BufferedReader ler = new BufferedReader(new FileReader(fileName));
+			String linha = ler.readLine();
+
+			while ( linha != null ) {        		
+				codTema = Integer.parseInt(ler.readLine());
+				tema = ler.readLine();
+				descricao = ler.readLine();
+				preco = Double.parseDouble(ler.readLine());
+
+				System.out.println("\n"+codTema + tema+ descricao + preco);
+					
+				GerarListaEnfeites(codTema, tema, descricao, preco);
+				ler.close();
+			}
+		} 
+		catch (Exception e) {
+			System.err.println("Ocorreu um erro!");
+		} // fim try e catch 
+	} // fim da lista de enfeites
+	
+
+	public void GerarListaEnfeites(int codTema, String tema, String descricao, double preco) {
+		NO aux = inicio;
+		Enfeites enfeites = new Enfeites(codTema, tema, descricao, preco);
+
+		enfeites.setCodTema(codTema);
+		enfeites.setTemaEnfeite(tema);
+		enfeites.setDescricaoEnfeite(descricao);
+		enfeites.setPreco(preco);
+		
+		if (inicio == null) {							// verifica se a lista est� vazia
+			NO n = new NO(enfeites);	// carrega o valor de "e" no n� criado
+			inicio = n;									// carrega inicio com "n" - novo n� criado
+		}  // fim if
+		else {
+				while (aux.prox != null) {				// prox vem da classe contructor NO
+					aux = aux.prox;						// vai movendo aux para a proximo endere�o
+				} // fim while
+				NO n = new NO(enfeites);	// carrega o valor de "e" no n� criado
+				aux.prox = n;								// carrega n aux o endere�o de n		
+		}  // fim do else
+	}  //fim gerar lista
+	
+
+	public void PercorreListaEnfeites() {
+		
+		if (inicio == null) {
+			System.out.println("Lista vazia");
+		} // if
+		else {
+			NO aux1 = inicio;	// cria��o de duas variaveis
+				
+			while (aux1 != null) {
+				System.out.println("Codigo: " +aux1.enfeites.getCodTema() +" Tema: " +aux1.enfeites.getTemaEnfeite()+" Descri��o: "+ aux1.enfeites.getDescricaoEnfeite() + " Pre�o: " + aux1.enfeites.getPreco()); 
+				aux1 = aux1.prox;
+			} // fim while
+		} // fim else
+	} // fim percorre lista
 } // fim classe
