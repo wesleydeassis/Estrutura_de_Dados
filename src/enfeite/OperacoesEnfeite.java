@@ -27,7 +27,7 @@ public class OperacoesEnfeite {
 			"\n1- Cadastrar enfeite"+
 			"\n2- Gravar lista de enfeites"+
 			"\n3- Listar enfeites"+
-			"\n4- Buscar enfeite por Tema"+
+			"\n4- Buscar enfeite por tema"+
 			"\n5- Remover da enfeite da lista"+
 			"\n6- Recuperar da lista"+
 			"\n7- Mostrar lista recuperada"+
@@ -47,7 +47,7 @@ public class OperacoesEnfeite {
 				break;
 
 				case 4:
-					tema = JOptionPane.showInputDialog("Digitar codigo do tema para busca: ");
+					tema = JOptionPane.showInputDialog("Digite o nome do tema para buscar: ");
 					BuscarEnfeites(tema);
 				break;
 
@@ -57,7 +57,8 @@ public class OperacoesEnfeite {
 				break;
 
 				case 6:
-					RecuperarListaEnfeites();
+					JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
+					//RecuperarListaEnfeites();
 				break;
 
 				case 7:
@@ -77,7 +78,7 @@ public class OperacoesEnfeite {
 	public void CadastrarEnfeites() {   // adicionar no final da lista
 		Enfeites enfeites = new Enfeites(codTema, tema, descricao, preco);
 
-		codTema = (int)(Math.random());
+		codTema = (int)(Math.random() * 1000);
 		enfeites.setCodTema(codTema);
 
 		tema = JOptionPane.showInputDialog("Informe o tema do enfeite");
@@ -165,22 +166,24 @@ public class OperacoesEnfeite {
 
 	public void BuscarEnfeites(String tema) {
 		String aux = "";
-		for(NO nodo = inicio; nodo != null; nodo = nodo.prox) {
-			aux = nodo.enfeites.getTemaEnfeite();
 
-		    if ( tema.equalsIgnoreCase(aux) ) {
-				JOptionPane.showMessageDialog(null, "Enfeitae será apresentado no console!"); 
-		        System.out.println( "Código " +nodo.enfeites.getCodTema()+ 
-									" - Tema: "+ nodo.enfeites.getTemaEnfeite()+
-									" - Descrição: " + nodo.enfeites.getDescricaoEnfeite()+
-									" - Preço: "+nodo.enfeites.getPreco());
-		        break;
-		    } //fim if
-			else {
-				JOptionPane.showMessageDialog(null, "Enfeitae não localizado!"); 
-			} // fim else
+		for ( NO nodo = inicio; nodo != null; nodo = nodo.prox ) {
+			aux = nodo.enfeites.getTemaEnfeite();
+			try {
+				if ( tema.equalsIgnoreCase(aux) ) {
+					JOptionPane.showMessageDialog(null, "Enfeite será apresentado no console!"); 
+					System.out.println( "Código " +nodo.enfeites.getCodTema()+ 
+										" - Tema: "+ nodo.enfeites.getTemaEnfeite()+
+										" - Descrição: " + nodo.enfeites.getDescricaoEnfeite()+
+										" - Preço: "+nodo.enfeites.getPreco());
+					break;
+				} //fim if
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Enfeite não localizado!"); 
+			}
 		} // fim for
 	} // fim buscar
+	
 	
 	public String RemoverInicio() {			// 6 remover no inico da lista
 		int codTema1 = 0;								// criar as variaveis
@@ -249,7 +252,7 @@ public class OperacoesEnfeite {
 	
 	
 	public String RemoverEnfeites(int pos) {
-			int codTema1 = 0;								// criar as variaveis
+		int codTema1 = 0;								// criar as variaveis
 		String tema1 = "";
 		String descricao1 = "";
 		double preco1 = 0.0;

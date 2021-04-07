@@ -1,11 +1,12 @@
 package controller;
 
+//import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 
 public class RealizarReservar {
 
-// 	private LocalDate DataFesta = LocalDate.now();
+//	private LocalDate DataFesta = LocalDate.now();
 //    private int HoraInicio;
 //    private int HoraRetorno;
 //    private String FormaDePagamento;
@@ -26,6 +27,7 @@ public class RealizarReservar {
 			
 			switch (opcao) {
 				case 1:
+					JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
 					//CadastrarClientes();
 				break;
 
