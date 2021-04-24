@@ -1,11 +1,11 @@
 package cliente;
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 public class OperacoesClientes {
-   private int CPF_RNE;
+   private String CPF_RNE;
    private String Nome;
    private String Telefone;
    private String Endereco;
@@ -82,7 +82,7 @@ public class OperacoesClientes {
 	public void CadastrarClientes() {
 		Clientes cliente = new Clientes(CPF_RNE, Nome, Endereco, Telefone, DataCadastro, QtdeAluguel);
 			
-		CPF_RNE = Integer.parseInt(JOptionPane.showInputDialog("Digite CPF ou RNE: ")); 
+		CPF_RNE = JOptionPane.showInputDialog("Digite CPF ou RNE: "); 
 		cliente.setCPF_RNE(CPF_RNE);
 			
 		Nome = JOptionPane.showInputDialog("Informe o Nome do Cliente");
