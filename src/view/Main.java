@@ -1,7 +1,6 @@
 package view;
 /*
 Elen Carvalho de Oliveira - RA: 1110482013042
-Hélio Yukio Mancio - RA: 1110482013009
 Luiz Antônio de Arruda - RA: 11100482013040
 Wesley Silva de Assis - RA: 1110482013028
 */
