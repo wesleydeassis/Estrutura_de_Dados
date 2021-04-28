@@ -2,8 +2,10 @@ package cliente;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import cliente.Cliente;
-import NO.NO;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class OperacoesClientes {
    private int CPF_RNE;
@@ -50,7 +52,7 @@ public class OperacoesClientes {
 
 				case 4:
                     //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					CPF_RNE = JOptionPane.showInputDialog("Digitar codigo do tema para busca: ");
+					CPF_RNE = Integer.parseInt(JOptionPane.showInputDialog("Digitar codigo do tema para busca: "));
 					BuscarClientes(CPF_RNE);
 				break;
 
@@ -97,11 +99,11 @@ public class OperacoesClientes {
 		
 		cliente.setDataCadastro(DataCadastro);
 		
-		QtdeAluguel = Integer.parseInt(JOptionPane.showInputDialog("Digite Quantidade de Aluguel: "));
+		QtdeAluguel = Integer.parseInt(JOptionPane.showInputDialog("Digite Quantidade de peças: "));
 		cliente.setQtdeAluguel(QtdeAluguel);
 		
 		if (inicio == null) {								// verifica se a lista esta vazia
-			NOn = new NO(cliente);	
+			NO n = new NO(cliente);	
 			inicio = n;
 			n.prox = null;
 			n.anterior = null;									
@@ -119,7 +121,7 @@ public class OperacoesClientes {
 		} // fim do else
 		JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");  
 		System.out.println("Cliente Cadastrado: \n" + 
-							" - CPF_RNE: " + cliente.getCPF_RNE() + 
+							"CPF_RNE: " + cliente.getCPF_RNE() + 
 							" - Nome: " + cliente.getNome() + 
 							" - Endereco: " + cliente.getEndereco() +
 							" - Telefone: " + cliente.getTelefone() +
@@ -178,7 +180,7 @@ public class OperacoesClientes {
 			System.out.println("Lista vazia");
 		} // if
 		else {
-			NO_Cliente aux = inicio;	// criação de duas variaveis
+			NO aux = inicio;	// criação de duas variaveis
 			
 			while (aux != null) {
 				System.out.println("\n CPF_RNE: " +aux.clientes.getCPF_RNE() +
