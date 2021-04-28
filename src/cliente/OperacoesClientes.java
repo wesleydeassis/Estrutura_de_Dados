@@ -99,7 +99,7 @@ public class OperacoesClientes {
 		
 		cliente.setDataCadastro(DataCadastro);
 		
-		QtdeAluguel = Integer.parseInt(JOptionPane.showInputDialog("Digite Quantidade de peças: "));
+		QtdeAluguel = 0;
 		cliente.setQtdeAluguel(QtdeAluguel);
 		
 		if (inicio == null) {								// verifica se a lista esta vazia
@@ -121,7 +121,7 @@ public class OperacoesClientes {
 		} // fim do else
 		JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");  
 		System.out.println("Cliente Cadastrado: \n" + 
-							"CPF_RNE: " + cliente.getCPF_RNE() + 
+							" CPF_RNE: " + cliente.getCPF_RNE() + 
 							" - Nome: " + cliente.getNome() + 
 							" - Endereco: " + cliente.getEndereco() +
 							" - Telefone: " + cliente.getTelefone() +
@@ -138,7 +138,7 @@ public class OperacoesClientes {
 		    BufferedWriter gravar = new BufferedWriter(new FileWriter( fileName ));	
 		
 			while (aux != null) {
-	            gravar.write(" "); 
+	            gravar.write("** Novo cliente: "); 
 				gravar.newLine();
 
 				CPF_RNE = aux.clientes.getCPF_RNE();

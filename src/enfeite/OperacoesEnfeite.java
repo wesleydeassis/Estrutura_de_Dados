@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
-
 public class OperacoesEnfeite {
 
 	private int codTema;
@@ -102,7 +101,7 @@ public class OperacoesEnfeite {
 				NO n = new NO(enfeites);	// cria um novo n� com endere�o "n" e carrega dado "e"
 				aux.prox = n;								// carrega n aux o endere�o de n		
 		} // fim do else
-		JOptionPane.showMessageDialog(null, "Enfeitae cadastrado com sucesso!");  
+		JOptionPane.showMessageDialog(null, "Enfeite cadastrado com sucesso!");  
 		System.out.println("Enfeite Cadastrado: \n" + 
 							" Código: " +enfeites.getCodTema() + 
 							" - Tema: " +enfeites.getTemaEnfeite()+ 
@@ -119,7 +118,7 @@ public class OperacoesEnfeite {
 		    BufferedWriter gravar = new BufferedWriter(new FileWriter( fileName ));	
 		
 			while (aux != null) {
-	            gravar.write(0); 
+	            gravar.write("** Novo Enfeite:"); 
 				gravar.newLine();
 
 				codTema = aux.enfeites.getCodTema();
@@ -199,7 +198,7 @@ public class OperacoesEnfeite {
 			tema1 = inicio.enfeites.getTemaEnfeite();				
 			descricao1 = inicio.enfeites.getDescricaoEnfeite();
 			preco1 = inicio.enfeites.getPreco();
-			JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 
+			JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 
 			inicio = inicio.prox;			// passar para inicio o ender�o do proximos endere�o
 		} // fim else
 
@@ -223,7 +222,7 @@ public class OperacoesEnfeite {
 				descricao1 = inicio.enfeites.getDescricaoEnfeite();
 				preco1 = inicio.enfeites.getPreco();	
 
-				JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 	
+				JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 	
 				inicio = null;					// informa que � o ultimo elemento da lista
 			} // fim if
 			else {		
@@ -234,7 +233,7 @@ public class OperacoesEnfeite {
 				descricao1 = aux.prox.enfeites.getDescricaoEnfeite();
 				preco1 = aux.prox.enfeites.getPreco();	
 
-				JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 
+				JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 
 				aux.prox = null;			// coloca null para mostrar o fim da lista. 
 			} // fim else
 		} // fim else
@@ -278,7 +277,7 @@ public class OperacoesEnfeite {
 			preco1 = aux.enfeites.getPreco();
 
 			RemoverInicio();
-			JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 
+			JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 
 			return "Código : " + codTema1 + " - Tema: " + tema1 + " - Descrição: " +descricao1 + " - Preço: " +preco1;
 		} // Fim IF
 		else {
@@ -298,7 +297,7 @@ public class OperacoesEnfeite {
 				preco1 = aux.enfeites.getPreco();
 
 				RemoveFinal();
-				JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 
+				JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 
 				return "Código : " + codTema1 + " - Tema: " + tema1 + " - Descrição: " +descricao1 + " - Preço: " +preco1;
 			} // fim else
 			else {						// remover qualquer posi��o
@@ -317,7 +316,7 @@ public class OperacoesEnfeite {
 				preco1 = aux.enfeites.getPreco();
 				aux2.prox = aux.prox;
 
-				JOptionPane.showMessageDialog(null, "Enfeitae removido com sucesso!"); 
+				JOptionPane.showMessageDialog(null, "Enfeite removido com sucesso!"); 
 				return "Código : " + codTema1 + " - Tema: " + tema1 + " - Descrição: " +descricao1 + " - Preço: " +preco1;
 			} // fim else
 		} // fim else
