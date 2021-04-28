@@ -4,13 +4,17 @@ import java.time.LocalDate;
 
 public class Reserva {
     private LocalDate DataFesta;
+    private LocalDate DataPrevista;
+    private LocalDate DataRetorno;
     private int HoraInicio;
     private int HoraRetorno;
     private String FormaDePagamento;
     private double PrecoFinal;
 
-    public Reserva(LocalDate DataFesta, int HoraInicio, int HoraRetorno, String FormaDePagamento, double PrecoFinal) {
+    public Reserva(LocalDate DataFesta, LocalDate DataPrevista, LocalDate DataRetorno, int HoraInicio, int HoraRetorno, String FormaDePagamento, double PrecoFinal) {
         this.DataFesta = DataFesta;
+        this.DataPrevista = DataPrevista;
+        this.DataRetorno = DataRetorno;
         this.HoraInicio = HoraInicio;
         this.HoraRetorno = HoraRetorno;
         this.FormaDePagamento = FormaDePagamento;
@@ -25,6 +29,22 @@ public class Reserva {
         DataFesta = dataFesta;
     }
 
+    public LocalDate getDataPrevista() {
+        return DataPrevista;
+    }
+
+    public void setDataPrevista(LocalDate dataPrevista) {
+        DataPrevista = dataPrevista;
+    }
+
+    public LocalDate getDataRetorno() {
+        return DataRetorno;
+    }
+
+    public void setDataRetorno(LocalDate dataRetorno) {
+        DataRetorno = dataRetorno;
+    }
+    
     public int getHoraInicio() {
         return HoraInicio;
     }
