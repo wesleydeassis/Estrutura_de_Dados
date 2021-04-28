@@ -123,7 +123,7 @@ public class OperacoesEnfeite {
 				gravar.newLine();
 
 				codTema = aux.enfeites.getCodTema();
-	            gravar.write(aux.enfeites.getCodTema()); 
+	            gravar.write(String.valueOf(aux.enfeites.getCodTema())); 
 				gravar.newLine();
 
 				tema = aux.enfeites.getTemaEnfeite();
@@ -135,7 +135,7 @@ public class OperacoesEnfeite {
 				gravar.newLine();
 
 				preco = aux.enfeites.getPreco();
-	            gravar.write((int) aux.enfeites.getPreco()); 
+	            gravar.write(String.valueOf(aux.enfeites.getPreco())); 
 				gravar.newLine();
 
 				aux = aux.prox;
