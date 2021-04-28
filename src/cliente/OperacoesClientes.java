@@ -2,11 +2,13 @@ package cliente;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import cliente.Cliente;
-import NO.NO;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class OperacoesClientes {
-   private int CPF_RNE;
+   private String CPF_RNE;
    private String Nome;
    private String Telefone;
    private String Endereco;
@@ -20,57 +22,35 @@ public class OperacoesClientes {
 
 	public void MenuClientes() {
 		int opcao = 0;
-		while (opcao != 99) {
+		while (opcao != 9) {
 
 			opcao = Integer.parseInt(JOptionPane.showInputDialog("Menu de Clientes: \n "+
 																	"\n1- Cadastrar Cliente"+
-																	"\n2- Gravar lista cliente"+
-																	"\n3- Listar clientes"+
-																	"\n4- Buscar cliente por CPF ou RNE"+
-																	"\n5- Remover cliente da lista"+
-																	"\n6- Recuperar da lista"+
-																	"\n7- Mostrar Lista recuperada"+
-																	"\n99- Voltar  "));
+																	"\n2- Remover cliente da lista"+
+																	"\n3- Buscar cliente por CPF ou RNE"+
+																	"\n4- Listar clientes"+
+																	"\n9- Voltar  "));
 			
 			switch (opcao) {
 				case 1:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					CadastrarClientes();
+                    CadastrarClientes();
 				break;
 
 				case 2:	
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					GravarCliente();
-				break;
-
-				case 3:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					ListarClientes();
-				break;
-
-				case 4:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					CPF_RNE = JOptionPane.showInputDialog("Digitar codigo do tema para busca: ");
-					BuscarClientes(CPF_RNE);
-				break;
-
-				case 5:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
 					int posicao = Integer.parseInt(JOptionPane.showInputDialog("Digite a posição a ser removida: "));
 					System.out.println(RemoverClientes(posicao));
 				break;
 
-				case 6:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					RecuperarListaClientes();
+				case 3:
+					CPF_RNE = JOptionPane.showInputDialog("Digitar codigo do tema para busca: ");
+					BuscarClientes(CPF_RNE);
 				break;
 
-				case 7:
-                    //JOptionPane.showMessageDialog(null, "Em desenvolvimento ... ");
-					//PercorreListaClientes();
+				case 4:
+					ListarClientes();
 				break;
 
-				case 99:
+				case 9:
 					JOptionPane.showMessageDialog(null, "Voltando ao menu anterior");
 				break;
 
@@ -83,7 +63,7 @@ public class OperacoesClientes {
 	public void CadastrarClientes() {
 		Clientes cliente = new Clientes(CPF_RNE, Nome, Endereco, Telefone, DataCadastro, QtdeAluguel);
 
-		CPF_RNE = Integer.parseInt(JOptionPane.showInputDialog("Digite CPF/RNE: "));
+		CPF_RNE = JOptionPane.showInputDialog("Digite CPF/RNE: ");
 		cliente.setCPF_RNE(CPF_RNE);
 		
 		Nome = JOptionPane.showInputDialog("Informe o Nome do Cliente: ");
@@ -97,11 +77,11 @@ public class OperacoesClientes {
 		
 		cliente.setDataCadastro(DataCadastro);
 		
-		QtdeAluguel = Integer.parseInt(JOptionPane.showInputDialog("Digite Quantidade de Aluguel: "));
+		QtdeAluguel = 0;
 		cliente.setQtdeAluguel(QtdeAluguel);
 		
 		if (inicio == null) {								// verifica se a lista esta vazia
-			NOn = new NO(cliente);	
+			NO n = new NO(cliente);	
 			inicio = n;
 			n.prox = null;
 			n.anterior = null;									
@@ -117,9 +97,10 @@ public class OperacoesClientes {
 				n.anterior = aux;
 				n.prox = null;
 		} // fim do else
-		JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");  
+		GravarCliente();
+		JOptionPane.showMessageDialog(null, "Cliente cadastrado e gravado com sucesso!");  
 		System.out.println("Cliente Cadastrado: \n" + 
-							" - CPF_RNE: " + cliente.getCPF_RNE() + 
+							" CPF_RNE: " + cliente.getCPF_RNE() + 
 							" - Nome: " + cliente.getNome() + 
 							" - Endereco: " + cliente.getEndereco() +
 							" - Telefone: " + cliente.getTelefone() +
@@ -136,11 +117,11 @@ public class OperacoesClientes {
 		    BufferedWriter gravar = new BufferedWriter(new FileWriter( fileName ));	
 		
 			while (aux != null) {
-	            gravar.write(" "); 
+	            gravar.write("** Novo cliente: "); 
 				gravar.newLine();
 
 				CPF_RNE = aux.clientes.getCPF_RNE();
-	            gravar.write(String.valueOf(aux.clientes.getCPF_RNE())); 
+	            gravar.write(aux.clientes.getCPF_RNE()); 
 				gravar.newLine();
 
 				Nome = aux.clientes.getNome();
@@ -170,7 +151,6 @@ public class OperacoesClientes {
 		catch (Exception e) {
 			System.err.println("Ocorreu um erro!");
 		}  	// fim try-catch
-		JOptionPane.showMessageDialog(null, "Lista gravada com sucesso!");
 	} // fim gravar  cliente
 	
 	public void ListarClientes() {
@@ -178,9 +158,11 @@ public class OperacoesClientes {
 			System.out.println("Lista vazia");
 		} // if
 		else {
-			NO_Cliente aux = inicio;	// criação de duas variaveis
+			RecuperarListaClientes();
+			NO aux = inicio;	// criação de duas variaveis
 			
 			while (aux != null) {
+				JOptionPane.showMessageDialog(null, "A lista será mostrada no console");
 				System.out.println("\n CPF_RNE: " +aux.clientes.getCPF_RNE() +
 									" - Nome: " +aux.clientes.getNome()+
 									" - Endereço: "+ aux.clientes.getEndereco()+ 
@@ -192,8 +174,8 @@ public class OperacoesClientes {
 		} // fim else
 	} // fim lista cliente
 	
-	public void BuscarClientes(int CPF_RNE) {
-		int aux = 0;
+	public void BuscarClientes(String CPF_RNE) {
+		String aux = " ";
 		for(NO nodo = inicio; nodo != null; nodo = nodo.prox) {
 			aux = nodo.clientes.getCPF_RNE();
 		       if (CPF_RNE == aux) {
@@ -209,7 +191,7 @@ public class OperacoesClientes {
 	} // fim buscar cliente
 	
 	public String RemoverInicio() {	 // 6 remover no inico da lista
-		int CPF_RNE = 0;								// criar as variaveis
+		String CPF_RNE = " ";								// criar as variaveis
 		String Nome = " ";
 		String Endereco = " ";
 		String Telefone = " ";
@@ -241,7 +223,7 @@ public class OperacoesClientes {
 	} // fim da classe Remove Inicio
 	
 	public String RemoveFinal() {	// remover no final da lista
-		int CPF_RNE = 0;								// criar as variaveis
+		String CPF_RNE = " ";								// criar as variaveis
 		String Nome = " ";
 		String Endereco = " ";
 		String Telefone = " ";
@@ -301,7 +283,7 @@ public class OperacoesClientes {
 	}
 	
 	public String RemoverClientes(int posicao) {
-		int CPF_RNE = 0;								// criar as variaveis
+		String CPF_RNE = " ";								// criar as variaveis
 		String Nome = " ";
 		String Endereco = " ";
 		String Telefone = " ";
@@ -413,7 +395,7 @@ public class OperacoesClientes {
 			String linha = ler.readLine();
 
 			while ( linha != null ) {  
-				CPF_RNE = Integer.parseInt(ler.readLine());
+				CPF_RNE = ler.readLine();
 				Nome = ler.readLine();
 				Endereco = ler.readLine();
 				Telefone = ler.readLine();

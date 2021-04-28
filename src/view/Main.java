@@ -19,12 +19,12 @@ public class Main {
 
 		int opcao = 0;
 		
-		while (opcao != 99) {
+		while (opcao != 9) {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog("Buffet: \n\n"+ 
 							"1 - Cadastrar Enfeites \n"+ 
 							"2 - Cadastrar Clientes\n"+ 
 							"3 - Registrar Aluguel \n"+ 
-							"99 - Sair "));
+							"9 - Sair "));
 			
 			switch (opcao) {
 				case 1:
@@ -39,7 +39,7 @@ public class Main {
 					reserva.MenuReservar();
 				break;
 				
-				case 99:
+				case 9:
 					JOptionPane.showMessageDialog(null, "Finalizando o programa");
 				break;
 					
